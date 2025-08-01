@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Refactored To-Do App</title>
+  <style>
+    body { font-family: Arial; margin: 20px; }
+    input, button { margin: 5px; }
+  </style>
+</head>
+<body>
+  <h2>To-Do List</h2>
+  <input id="taskInput" type="text" placeholder="Enter a task">
+  <button onclick="addTask()">Add Task</button>
+  <ul id="taskList"></ul>
+
+  <script>
+    const tasks = [];
+    const taskInput = document.getElementById("taskInput");
+    const taskList = document.getElementById("taskList");
+
+    function addTask() {
+      const task = taskInput.value.trim();
+      if (!task) {
+        alert("Please enter a task.");
+        return;
+      }
+
+      console.time("Add Task");
+      tasks.push(task);
+      console.timeEnd("Add Task");
+
+      taskInput.value = "";
+      displayTasks();
+    }
+
+    function displayTasks() {
+      taskList.innerHTML = "";
+      const fragment = document.createDocumentFragment();
+      tasks.forEach(t => {
+        const li = document.createElement("li");
+        li.textContent = t;
+        fragment.appendChild(li);
+      });
+      taskList.appendChild(fragment);
+    }
+  </script>
+</body>
+</html>
